@@ -44,14 +44,14 @@ class EleronControl:
         angle = angle + 90
         duty_cycle = 2+(angle/18)
         self.left_servo.ChangeDutyCycle(duty_cycle)
-        time.sleep(0.1)  # Allow servo time to receive and process the signal
+        # time.sleep(0.1)  # Allow servo time to receive and process the signal
         self.left_servo.ChangeDutyCycle(0)  # Stop the signal to prevent jitter
         
     def set_right_angle(self, angle):
         angle = angle + 90
         duty_cycle = 2+(angle/18)
         self.right_servo.ChangeDutyCycle(duty_cycle)
-        time.sleep(0.1)  # Allow servo time to receive and process the signal
+        # time.sleep(0.1)  # Allow servo time to receive and process the signal
         self.right_servo.ChangeDutyCycle(0)  # Stop the signal to prevent jitter
     
     def cleanup(self):

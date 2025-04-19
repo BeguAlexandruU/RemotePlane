@@ -32,13 +32,13 @@ class Server:
             try:
                 message = json.loads(data.decode())
                 print(f"Received from {addr}: {message}")
-                # if message["type"] == "axis":
-                #     axis = message["axis"]
-                #     value = message["value"]
-                #     if axis == 0:
-                #         self.eleronControl.setAxis(value)
-                #     if axis == 1:
-                #         self.elevatorControl.setAxis(value)
+                if message["type"] == "axis":
+                    axis = message["axis"]
+                    value = message["value"]
+                    if axis == 0:
+                        self.eleronControl.setAxis(value)
+                    if axis == 1:
+                        self.elevatorControl.setAxis(value)
                 # elif message["type"] == "button":
                 #     button = message["button"]
                 #     print(f"Button {button} pressed")

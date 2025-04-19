@@ -31,7 +31,7 @@ class Server:
             data, addr = self.sock.recvfrom(1024)  # Buffer size is 1024 bytes
             try:
                 message = json.loads(data.decode())
-                print(f"Received from {addr}: {message}")
+                # print(f"Received from {addr}: {message}")
                 if message["type"] == "axis":
                     axis = message["axis"]
                     value = message["value"]

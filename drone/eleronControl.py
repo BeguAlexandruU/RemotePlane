@@ -29,10 +29,10 @@ class EleronControl:
     def setAxis(self, value):
         
         if value >= 0:  # Stick right
-            right_eleron = value * self.max_angle  # 0 to max
+            right_eleron = -value * self.max_angle  # 0 to max
             left_eleron = value * self.min_angle  # 0 to min
         else:  # Stick left
-            right_eleron = -value * self.min_angle  # min to 0
+            right_eleron = value * self.min_angle  # min to 0
             left_eleron = -value * self.max_angle  # max to 0
             
         print(f"Left eleron: {left_eleron} \t Right eleron: {right_eleron}")

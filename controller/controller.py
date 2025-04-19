@@ -35,8 +35,8 @@ class Controller:
         
         if event.type == pygame.JOYAXISMOTION:
             # print(f"Axis {event.axis} moved to {event.value}")
-            # data = {"type": "axis", "axis": event.axis, "value": event.value}
-            filtered_value = self.filter_axis(event.axis, event.value)
+            data = {"type": "axis", "axis": event.axis, "value": event.value}
+            # filtered_value = self.filter_axis(event.axis, event.value)
             
         elif event.type == pygame.JOYBUTTONDOWN:
             print(f"Button {event.button} pressed")
@@ -50,22 +50,41 @@ class Controller:
     
     def filter_axis(self, axis, value):
         # Implement any filtering logic here
-        trim_pitch = 0.0
-        trim_roll = 0.0
+        trim_pitch = 10
+        trim_roll = 10
         
-        pitch_max = 45
-        pitch_min = -45
+        elevator_max = 45
+        elevator_min = -70
         
-        roll_max = 45
-        roll_min = -45
+        eleron_max = 45
+        eleron_min = -70
         
         if axis == 0:
-            # Left stick horizontal axis (roll)
-            res_roll = roll_min + (value + 1) * (roll_max - roll_min) / 2
-            print(f"Filtered roll value: {res_roll}")
+            # Horizontal axis (roll)
             
+            if value >= 0:  # Stick right
+                right_eleron = value * eleron_max  # 0 to max
+                left_eleron = value * eleron_min  # 0 to min
+            else:  # Stick left
+                right_eleron = -value * eleron_min  # min to 0
+                left_eleron = -value * eleron_max  # max to 0
             
-            eleron_right = res_roll
-            eleron_left = res_roll
+            print(f"Left eleron: {left_eleron} \t Right eleron: {right_eleron}")
         
-        # return res_roll
+        if axis == 1:
+            # Vertical axis (pitch)
+            
+            if value >= 0:  # Stick right
+                elevator = (value) * elevator_min 
+            else:  # Stick left
+                elevator = -value * elevator_max  
+            
+            # Apply trim to adjust neutral position
+            elevator = elevator + (trim_pitch)
+            
+            # Ensure value stays within allowed range
+            elevator = max(elevator_min, min(elevator_max, elevator))
+            
+            print(f"Elevator: {elevator}")
+            
+    

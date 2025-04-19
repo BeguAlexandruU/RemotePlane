@@ -1,19 +1,55 @@
 import socket
 import json
 
-HOST = "0.0.0.0"  # Listen on all network interfaces
-PORT = 65432
+from elevatorControl import ElevatorControl
+from eleronControl import EleronControl
 
-# Setup UDP Socket
-server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-server.bind((HOST, PORT))
 
-print(f"Server listening on {HOST}:{PORT}...")
+class Server:
+    def __init__(self, host='localhost', port=65432):
+        self.host = host
+        self.port = port
 
-while True:
-    data, addr = server.recvfrom(1024)  # Receive data (max 1024 bytes)
-    try:
-        message = json.loads(data.decode())
-        print(f"Received from {addr}: {message}")
-    except json.JSONDecodeError:
-        print("Received malformed data")
+        # Create a UDP socket
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.sock.bind((self.host, self.port))
+        print(f"Server started on {self.host}:{self.port}") 
+    
+    def setup(self):
+        
+        self.eleronControl = EleronControl(23, 24)
+        self.elevatorControl = ElevatorControl(25)
+        self.eleronControl.setup()
+        self.elevatorControl.setup()
+        
+        self.eleronControl.setAxis(0)
+        self.elevatorControl.setAxis(0)
+    
+    def run(self):
+        print(f"Server listen on {self.host}:{self.port}")
+        while True:
+            data, addr = self.sock.recvfrom(1024)  # Buffer size is 1024 bytes
+            try:
+                message = json.loads(data.decode())
+                # print(f"Received from {addr}: {message}")
+                if message["type"] == "axis":
+                    axis = message["axis"]
+                    value = message["value"]
+                    if axis == 0:
+                        self.eleronControl.setAxis(value)
+                    if axis == 1:
+                        self.elevatorControl.setAxis(value)
+                # elif message["type"] == "button":
+                #     button = message["button"]
+                #     print(f"Button {button} pressed")
+                # elif message["type"] == "hat":
+                #     hat = message["hat"]
+                #     value = message["value"]
+                #     print(f"Hat {hat} moved to {value}")
+            except json.JSONDecodeError:
+                print("Received malformed data")
+
+if __name__ == "__main__":
+    server = Server()
+    server.setup()
+    server.run()

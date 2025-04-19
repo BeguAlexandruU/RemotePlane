@@ -45,7 +45,7 @@ class ElevatorControl:
         duty_cycle = 2+(angle/18)
         self.servo.ChangeDutyCycle(duty_cycle)
         # time.sleep(0.1)  # Allow servo time to receive and process the signal
-        self.servo.ChangeDutyCycle(0)  # Stop the signal to prevent jitter
+        # self.servo.ChangeDutyCycle(0)  # Stop the signal to prevent jitter
       
     def cleanup(self):
         self.servo.stop()

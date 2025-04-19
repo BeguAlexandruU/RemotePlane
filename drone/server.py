@@ -13,8 +13,7 @@ class Server:
         # Create a UDP socket
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.bind((self.host, self.port))
-        self.ip_address = self.get_ip_address()
-        print(f"Server started on {self.ip_address}:{self.port}") 
+        print(f"Server started on {self.host}:{self.port}") 
     
     def setup(self):
         

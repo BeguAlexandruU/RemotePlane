@@ -5,7 +5,7 @@ import threading
 from controller import Controller
 
 class Client:
-    def __init__(self, server_ip='localhost', port=65432):
+    def __init__(self, server_ip='192.168.40.126', port=65432):
         self.server_ip = server_ip
         self.port = port
         

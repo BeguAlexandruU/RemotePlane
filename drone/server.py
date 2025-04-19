@@ -6,14 +6,15 @@ from eleronControl import EleronControl
 
 
 class Server:
-    def __init__(self, host='localhost', port=65432):
+    def __init__(self, host='0.0.0.0', port=65432):
         self.host = host
         self.port = port
 
         # Create a UDP socket
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.bind((self.host, self.port))
-        print(f"Server started on {self.host}:{self.port}") 
+        self.ip_address = self.get_ip_address()
+        print(f"Server started on {self.ip_address}:{self.port}") 
     
     def setup(self):
         
@@ -31,7 +32,7 @@ class Server:
             data, addr = self.sock.recvfrom(1024)  # Buffer size is 1024 bytes
             try:
                 message = json.loads(data.decode())
-                # print(f"Received from {addr}: {message}")
+                print(f"Received from {addr}: {message}")
                 if message["type"] == "axis":
                     axis = message["axis"]
                     value = message["value"]

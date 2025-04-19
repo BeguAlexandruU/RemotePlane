@@ -34,13 +34,14 @@ class ElevatorControl:
                       
         # Ensure value stays within allowed range
         elevator_angle = max(self.min_angle, min(self.max_angle, elevator_angle))
-            
+        
         print(f"Elevator: {elevator_angle}")
         
         # Use daemon threads to set servo angles
         self.set_angle(elevator_angle)
     
     def set_angle(self, angle):
+        angle = angle + 90
         duty_cycle = 2+(angle/18)
         self.servo.ChangeDutyCycle(duty_cycle)
         time.sleep(0.1)  # Allow servo time to receive and process the signal

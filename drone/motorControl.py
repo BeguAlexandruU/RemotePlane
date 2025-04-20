@@ -31,7 +31,7 @@ class MotorControl:
             print("ESC not armed. Call arm() first.")
             return
         
-        speed = int(((value+1) * self.max_speed)/2)
+        speed = int(((-value+1) * self.max_speed)/2)
         
         print(f"Raw value: {value}, Mapped speed: {speed}")
         

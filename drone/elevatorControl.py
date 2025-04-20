@@ -25,7 +25,7 @@ class ElevatorControl:
     def setAxis(self, value):
         
         if value >= 0:  # Stick right
-            elevator_angle = (value) * self.min_angle 
+            elevator_angle = value * self.min_angle 
         else:  # Stick left
             elevator_angle = -value * self.max_angle  
             

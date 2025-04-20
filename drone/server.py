@@ -1,6 +1,7 @@
 import socket
 import json
 
+from motorControl import MotorControl
 from elevatorControl import ElevatorControl
 from eleronControl import EleronControl
 
@@ -19,11 +20,14 @@ class Server:
         
         self.eleronControl = EleronControl(23, 24)
         self.elevatorControl = ElevatorControl(25)
+        self.motorControl = MotorControl(12)
         self.eleronControl.setup()
         self.elevatorControl.setup()
+        self.motorControl.setup()
         
         self.eleronControl.setAxis(0)
         self.elevatorControl.setAxis(0)
+        self.motorControl.arm()
     
     def run(self):
         print(f"Server listen on {self.host}:{self.port}")
@@ -39,6 +43,8 @@ class Server:
                         self.eleronControl.setAxis(value)
                     if axis == 1:
                         self.elevatorControl.setAxis(value)
+                    if axis == 6:
+                        self.motorControl.setSpeed(value)
                 # elif message["type"] == "button":
                 #     button = message["button"]
                 #     print(f"Button {button} pressed")

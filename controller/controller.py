@@ -34,7 +34,7 @@ class Controller:
         data = None
         
         if event.type == pygame.JOYAXISMOTION:
-            # print(f"Axis {event.axis} moved to {event.value}")
+            print(f"Axis {event.axis} moved to {event.value}")
             data = {"type": "axis", "axis": event.axis, "value": event.value}
             # filtered_value = self.filter_axis(event.axis, event.value)
             

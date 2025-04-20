@@ -5,7 +5,7 @@ class MotorControl:
     def __init__(self, gpio_pin):
         self.pin = gpio_pin
         self.pi = pigpio.pi()
-        self.max_speed = 50
+        self.max_speed = 30
         self.armed = False
         print(f"ESC initialized on GPIO {self.pin}")
     
@@ -35,15 +35,10 @@ class MotorControl:
         
         print(f"Raw value: {value}, Mapped speed: {speed}")
         
-          
         
-        # if not (0 <= speed <= 100):
-        #     print("Speed must be between 0 and 100.")
-        #     return
-        
-        # pulse_width = 1000 + (speed * 10)
-        # self.pi.set_servo_pulsewidth(self.pin, pulse_width)
-        # print(f"Set speed: {speed} -> PWM: {pulse_width}μs")
+        pulse_width = 1000 + (speed * 10)
+        self.pi.set_servo_pulsewidth(self.pin, pulse_width)
+        print(f"Set speed: {speed} -> PWM: {pulse_width}μs")
     
     def cleanup(self):
         print("Cleaning up ESC...")

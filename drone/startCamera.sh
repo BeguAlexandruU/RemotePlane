@@ -1,0 +1,13 @@
+./pi_webrtc \
+    --camera=libcamera:0 \
+    --fps=30 \
+    --width=1280 \
+    --height=960 \
+    --use_mqtt \
+    --mqtt_host=c1a2c3486d294da3a1fa6182ab603d52.s1.eu.hivemq.cloud \
+    --mqtt_port=8883 \
+    --mqtt_username=san007 \
+    --mqtt_password=Ragnarioc11 \
+    --uid=f9ed1347-d88a-420e-abb6-e3c1e00a698c \
+    --no_audio \
+    --hw_accel # Only Pi Zero 2W, 3B, 4B support hw encoding

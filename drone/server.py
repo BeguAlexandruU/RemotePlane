@@ -41,9 +41,9 @@ class Server:
                     value = message["value"]
                     if axis == 0:
                         self.eleronControl.setAxis(value)
-                    if axis == 1:
+                    elif axis == 1:
                         self.elevatorControl.setAxis(value)
-                    if axis == 3:
+                    elif axis == 3:
                         self.motorControl.setSpeed(value)
                 # elif message["type"] == "button":
                 #     button = message["button"]

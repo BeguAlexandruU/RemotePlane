@@ -9,8 +9,8 @@ class EleronControl:
         self.left_pin = left_pin
         self.right_pin = right_pin
         
-        self.max_angle = 45
-        self.min_angle = -70
+        self.max_angle = 60
+        self.min_angle = -45
         print(f"Eleron servos initialized on pins {self.left_pin} and {self.right_pin}")
     
         

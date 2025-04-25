@@ -7,8 +7,8 @@ class ElevatorControl:
     def __init__(self, pin):
         self.pin = pin
         
-        self.max_angle = 45
-        self.min_angle = -70
+        self.max_angle = 40
+        self.min_angle = -45
         self.trim = 0
         print(f"Elevator servo initialized on pin {self.pin}")
     

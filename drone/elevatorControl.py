@@ -8,7 +8,7 @@ class ElevatorControl:
         self.pin = pin
         
         self.max_angle = 45
-        self.min_angle = -60
+        self.min_angle = -70
         self.trim = 0
         print(f"Elevator servo initialized on pin {self.pin}")
     
@@ -24,10 +24,10 @@ class ElevatorControl:
         
     def setAxis(self, value):
         
-        if value >= 0:  # Stick right
-            elevator_angle = -value * self.min_angle 
-        else:  # Stick left
-            elevator_angle = value * self.max_angle  
+        if value >= 0: # to me
+            elevator_angle = value * self.max_angle 
+        else:  # from me
+            elevator_angle = -value * self.min_angle  
             
         # Apply trim to adjust neutral position
         elevator_angle = elevator_angle + (self.trim)

@@ -7,7 +7,9 @@ from eleronControl import EleronControl
 
 
 class Server:
-    def __init__(self, host='0.0.0.0', port=65432):
+    def __init__(self, pilot, host='0.0.0.0', port=65432):
+        self.pilot = pilot
+        
         self.host = host
         self.port = port
 
@@ -15,19 +17,6 @@ class Server:
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.bind((self.host, self.port))
         print(f"Server started on {self.host}:{self.port}") 
-    
-    def setup(self):
-        
-        self.eleronControl = EleronControl(23, 24)
-        self.elevatorControl = ElevatorControl(25)
-        self.motorControl = MotorControl(12)
-        self.eleronControl.setup()
-        self.elevatorControl.setup()
-        self.motorControl.setup()
-        
-        self.eleronControl.setAxis(0)
-        self.elevatorControl.setAxis(0)
-        self.motorControl.arm()
     
     def run(self):
         print(f"Server listen on {self.host}:{self.port}")

@@ -1,6 +1,8 @@
+from drone.pilot import Pilot
 from server import Server
 
 if __name__ == "__main__":
-    server = Server()
-    server.setup()
-    server.run()
+    pilot = Pilot()
+
+    server = Server(pilot)
+    # server.run()

@@ -54,8 +54,3 @@ class Server:
                 #     print(f"Hat {hat} moved to {value}")
             except json.JSONDecodeError:
                 print("Received malformed data")
-
-if __name__ == "__main__":
-    server = Server()
-    server.setup()
-    server.run()

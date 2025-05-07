@@ -22,7 +22,3 @@ class Client:
         message = json.dumps(data).encode()
         self.client.sendto(message, (self.server_ip, self.port))  # Fixed variable name
 
-# Main execution
-if __name__ == "__main__":
-    client = Client()
-    client.run()

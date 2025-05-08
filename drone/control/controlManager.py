@@ -1,9 +1,6 @@
-import socket
-import json
-
-from motorControl import MotorControl
-from elevatorControl import ElevatorControl
-from eleronControl import EleronControl
+from .motorControl import MotorControl
+from .elevatorControl import ElevatorControl
+from .eleronControl import EleronControl
 
 class controlManager:
     def __init__(self):
@@ -12,7 +9,7 @@ class controlManager:
         self.motorControl = MotorControl(12)
     
     def setup(self):
-        
+
         self.eleronControl.setup()
         self.elevatorControl.setup()
         self.motorControl.setup()

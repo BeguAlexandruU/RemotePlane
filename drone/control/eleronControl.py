@@ -27,7 +27,8 @@ class EleronControl:
         print(f"Eleron servos initialized on pins {self.left_pin} and {self.right_pin}")
     
     def setAxis(self, value):
-        
+        # input value is between -1 and 1
+        # -1 is full left, 0 is neutral, 1 is full right
         if value >= 0:  # Stick right
             right_eleron = -value * self.max_angle  # 0 to max
             left_eleron = value * self.min_angle  # 0 to min

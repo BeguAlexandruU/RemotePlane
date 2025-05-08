@@ -1,10 +1,8 @@
 import socket
 import json
-
-from motorControl import MotorControl
-from elevatorControl import ElevatorControl
-from eleronControl import EleronControl
-
+# from motorControl import MotorControl
+# from elevatorControl import ElevatorControl
+# from eleronControl import EleronControl
 
 class Server:
     def __init__(self, pilot, host='0.0.0.0', port=65432):
@@ -28,12 +26,15 @@ class Server:
                 if message["type"] == "axis":
                     axis = message["axis"]
                     value = message["value"]
-                    if axis == 0:
-                        self.eleronControl.setAxis(value)
-                    elif axis == 1:
-                        self.elevatorControl.setAxis(value)
-                    elif axis == 3:
-                        self.motorControl.setSpeed(value)
+                    # print(f"Axis {axis} moved to {value}")
+                    self.pilot.setInput(message)
+
+                    # if axis == 0:
+                    #     self.eleronControl.setAxis(value)
+                    # elif axis == 1:
+                    #     self.elevatorControl.setAxis(value)
+                    # elif axis == 3:
+                    #     self.motorControl.setSpeed(value)
                 # elif message["type"] == "button":
                 #     button = message["button"]
                 #     print(f"Button {button} pressed")

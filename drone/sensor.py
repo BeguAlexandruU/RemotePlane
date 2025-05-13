@@ -19,7 +19,7 @@ class Sensor:
             # Simulate sensor data reading
             # ----------------------------------------------------
             time.sleep(0.5)
-            print("Plane roll: ", roll_degree) 
+            # print("Plane roll: ", roll_degree) 
             # ----------------------------------------------------
 
             data = None

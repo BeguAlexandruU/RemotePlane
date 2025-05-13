@@ -1,6 +1,6 @@
 import time
 
-# from control.controlManager import controlManager
+from control.controlManager import controlManager
 from inputAxis import inputAxis
 
 class Pilot:
@@ -8,7 +8,7 @@ class Pilot:
         self.inputAxis = inputAxis()
         self.vInputAxis = inputAxis()
 
-        # self.controlManager = controlManager()
+        self.controlManager = controlManager()
         
         print("Pilot initialized")
 
@@ -21,6 +21,7 @@ class Pilot:
     def setInput(self, data):
         if data["axis"] == "eleron":
             self.inputAxis.setRoll(data["value"])
+            self.controlManager.eleronControl.setAxis(data["value"])
         elif data["axis"] == "elevator":
             self.inputAxis.setPitch(data["value"])
         elif data["axis"] == "motor":

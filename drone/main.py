@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # Use ThreadPoolExecutor to manage threads
     with ThreadPoolExecutor(max_workers=2) as executor:
         # Submit tasks to the executor
-        executor.submit(sensor.run)
+        # executor.submit(sensor.run)
         executor.submit(server.run)
 
     print("Program terminated.")

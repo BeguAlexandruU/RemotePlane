@@ -12,6 +12,8 @@ class Pilot:
         
         print("Pilot initialized")
 
+        self.setup()
+
     def setup(self):
         self.controlManager.setup()
     

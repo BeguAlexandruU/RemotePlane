@@ -45,7 +45,7 @@ class EleronControl:
     def setAxis(self, value):
         value = max(-1, min(1, value))  # Clamp value to be between -1 and 1
 
-        if abs(value - self.last_value) < 0.005:  # Ignore small changes
+        if abs(value - self.last_value) < 0.01:  # Ignore small changes
             return
         
         self.last_value = value

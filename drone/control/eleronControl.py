@@ -25,7 +25,20 @@ class EleronControl:
         self.right_servo.start(0)
         
         print(f"Eleron servos initialized on pins {self.left_pin} and {self.right_pin}")
+
+        self.arm()
     
+    def arm(self):
+        # Arm the servos by setting them to neutral position
+        self.setAxis(-1)
+        time.sleep(1)
+        self.setAxis(1)
+        time.sleep(1)
+        self.setAxis(0)
+        
+        print("Eleron servos armed.")
+
+
     def setAxis(self, value):
         # input value is between -1 and 1
         # -1 is full left, 0 is neutral, 1 is full right

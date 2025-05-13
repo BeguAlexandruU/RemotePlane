@@ -36,6 +36,7 @@ class Pilot:
     def setVInput(self, data):
         if data["axis"] == "eleron":
             self.vInputAxis.setRoll(data["value"])
+            self.controlManager.eleronControl.setAxis(data["value"])
         elif data["axis"] == "elevator":
             self.vInputAxis.setPitch(data["value"])
         elif data["axis"] == "motor":

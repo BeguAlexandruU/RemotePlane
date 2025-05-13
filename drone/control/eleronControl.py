@@ -43,6 +43,8 @@ class EleronControl:
 
 
     def setAxis(self, value):
+        value = (value + 1) % 2 - 1 # Normalize value to be between -1 and 1
+
         if abs(value - self.last_value) < 0.05:  # Ignore small changes
             return
         

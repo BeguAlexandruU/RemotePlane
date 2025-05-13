@@ -41,6 +41,8 @@ class EleronControl:
     def setAxis(self, value):
         # input value is between -1 and 1
         # -1 is full left, 0 is neutral, 1 is full right
+        print(f"{value} to {value%1}")
+
         if value >= 0:  # Stick right
             # value = value % 1
             right_eleron = -value * self.max_angle  # 0 to max

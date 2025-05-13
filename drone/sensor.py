@@ -18,7 +18,7 @@ class Sensor:
         while True:
             # Simulate sensor data reading
             # ----------------------------------------------------
-            time.sleep(1)
+            time.sleep(0.5)
             print("Plane roll: ", roll_degree) 
             # ----------------------------------------------------
 

@@ -43,13 +43,9 @@ class EleronControl:
 
 
     def setAxis(self, value):
-        current_time = time.time()
         if abs(value - self.last_value) < 0.05:  # Ignore small changes
             return
-        if current_time - self.last_update_time < self.update_interval:  # Ignore rapid updates
-            return
-
-        self.last_update_time = current_time
+        
         self.last_value = value
 
         # Process the input as usual

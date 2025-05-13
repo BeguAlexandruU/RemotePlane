@@ -11,6 +11,10 @@ class Controller:
         self.eleronAxis = 0
         self.elevatorAxis = 1
         self.motorAxis = 3
+
+        self.manualModeButton = 0
+        self.virtualModeButton = 3
+        self.mixedModeButton = 1
     
     # setup function to initialize the joystick
     def setup(self): 
@@ -59,8 +63,26 @@ class Controller:
                     "value": event.value
                 }
             
-        # elif event.type == pygame.JOYBUTTONDOWN:
-        #     print(f"Button {event.button} pressed")
+        elif event.type == pygame.JOYBUTTONDOWN:
+            print(f"Button {event.button} pressed")
+            if event.button == self.manualModeButton:
+                data = {
+                    "type": "button",
+                    "button": "mode",
+                    "value": "manual",
+                }
+            if event.button == self.virtualModeButton:
+                data = {
+                    "type": "button",
+                    "button": "mode",
+                    "value": "virtual",
+                }
+            if event.button == self.mixedModeButton:
+                data = {
+                    "type": "button",
+                    "button": "mode",
+                    "value": "mixed",
+                }
         # elif event.type == pygame.JOYBUTTONUP:
         #     print(f"Button {event.button} released")
         # elif event.type == pygame.JOYHATMOTION:

@@ -24,20 +24,11 @@ class Server:
                 message = json.loads(data.decode())
                 # print(f"Received from {addr}: {message}")
                 if message["type"] == "axis":
-                    axis = message["axis"]
-                    value = message["value"]
-                    # print(f"Axis {axis} moved to {value}")
                     self.pilot.setInput(message)
 
-                    # if axis == 0:
-                    #     self.eleronControl.setAxis(value)
-                    # elif axis == 1:
-                    #     self.elevatorControl.setAxis(value)
-                    # elif axis == 3:
-                    #     self.motorControl.setSpeed(value)
-                # elif message["type"] == "button":
-                #     button = message["button"]
-                #     print(f"Button {button} pressed")
+                elif message["type"] == "button":
+                    self.pilot.setButton(message)
+
                 # elif message["type"] == "hat":
                 #     hat = message["hat"]
                 #     value = message["value"]

@@ -22,11 +22,14 @@ class Pilot:
     
     def cleanup(self):
         self.controlManager.cleanup()
+
+    def updateEleron(self):
+        self.controlManager.eleronControl.setAxis((self.inputAxis.roll * self.inputPriority) + (self.vInputAxis.roll * self.vInputPriority))
     
     def setInput(self, data):
         if data["axis"] == "eleron":
-            # self.inputAxis.setRoll(data["value"])
-            self.controlManager.eleronControl.setAxis((self.inputAxis.roll * self.inputPriority) + (self.vInputAxis.roll * self.vInputPriority))
+            self.inputAxis.setRoll(data["value"])
+            self.updateEleron()
         elif data["axis"] == "elevator":
             self.inputAxis.setPitch(data["value"])
         elif data["axis"] == "motor":
@@ -39,8 +42,10 @@ class Pilot:
     def setVInput(self, data):
         if data["axis"] == "eleron":
             self.vInputAxis.setRoll(data["value"])
+            self.updateEleron()
             # self.controlManager.eleronControl.setAxis(data["value"])
-            self.controlManager.eleronControl.setAxis((self.inputAxis.roll * self.inputPriority) + (self.vInputAxis.roll * self.vInputPriority))
+            # self.controlManager.eleronControl.setAxis((self.inputAxis.roll * self.inputPriority) + (self.vInputAxis.roll * self.vInputPriority))
+            
         elif data["axis"] == "elevator":
             self.vInputAxis.setPitch(data["value"])
         elif data["axis"] == "motor":

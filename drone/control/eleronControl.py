@@ -8,6 +8,10 @@ class EleronControl:
     def __init__(self, left_pin, right_pin):
         self.left_pin = left_pin
         self.right_pin = right_pin
+
+        self.last_update_time = 0
+        self.update_interval = 0.05
+        self.last_value = 0
         
         self.max_angle = 60
         self.min_angle = -45
@@ -39,30 +43,52 @@ class EleronControl:
 
 
     def setAxis(self, value):
-        # input value is between -1 and 1
-        # -1 is full left, 0 is neutral, 1 is full right
+        current_time = time.time()
+        if abs(value - self.last_value) < 0.05:  # Ignore small changes
+            return
+        if current_time - self.last_update_time < self.update_interval:  # Ignore rapid updates
+            return
 
-        if value >= 0:  # Stick right
-            print(f"{value} to {value%1}")
-            value = value % 1
-            right_eleron = -value * self.max_angle  # 0 to max
-            left_eleron = value * self.min_angle  # 0 to min
-        else:  # Stick left
-            print(f"{value} to {value%-1}")
-            value = value % -1
-            right_eleron = value * self.min_angle  # min to 0
-            left_eleron = -value * self.max_angle  # max to 0
-            
+        self.last_update_time = current_time
+        self.last_value = value
+
+        # Process the input as usual
+        if value >= 0:
+            right_eleron = -value * self.max_angle
+            left_eleron = value * self.min_angle
+        else:
+            right_eleron = value * self.min_angle
+            left_eleron = -value * self.max_angle
+
         print(f"Left eleron: {left_eleron} \t Right eleron: {right_eleron}")
-        
         self.set_left_angle(left_eleron)
         self.set_right_angle(right_eleron)
+
+    # def setAxis(self, value):
+    #     # input value is between -1 and 1
+    #     # -1 is full left, 0 is neutral, 1 is full right
+
+    #     if value >= 0:  # Stick right
+    #         print(f"{value} to {value%1}")
+    #         value = value % 1
+    #         right_eleron = -value * self.max_angle  # 0 to max
+    #         left_eleron = value * self.min_angle  # 0 to min
+    #     else:  # Stick left
+    #         print(f"{value} to {value%-1}")
+    #         value = value % -1
+    #         right_eleron = value * self.min_angle  # min to 0
+    #         left_eleron = -value * self.max_angle  # max to 0
+            
+    #     print(f"Left eleron: {left_eleron} \t Right eleron: {right_eleron}")
+        
+    #     self.set_left_angle(left_eleron)
+    #     self.set_right_angle(right_eleron)
     
     def set_left_angle(self, angle):
         angle = angle + 90
         duty_cycle = 2+(angle/18)
         self.left_servo.ChangeDutyCycle(duty_cycle)
-        time.sleep(0.05)
+        time.sleep(0.01)
         self.left_servo.ChangeDutyCycle(0)
         
     def set_right_angle(self, angle):

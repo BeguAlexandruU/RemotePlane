@@ -42,11 +42,11 @@ class EleronControl:
         # input value is between -1 and 1
         # -1 is full left, 0 is neutral, 1 is full right
         if value >= 0:  # Stick right
-            value = value % 1
+            # value = value % 1
             right_eleron = -value * self.max_angle  # 0 to max
             left_eleron = value * self.min_angle  # 0 to min
         else:  # Stick left
-            value = value % 1
+            # value = value % 1
             right_eleron = value * self.min_angle  # min to 0
             left_eleron = -value * self.max_angle  # max to 0
             

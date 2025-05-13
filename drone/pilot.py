@@ -8,7 +8,7 @@ class Pilot:
         self.inputAxis = inputAxis()
         self.vInputAxis = inputAxis()
 
-        self.inputPriority = 0
+        self.inputPriority = 1
         self.vInputPriority = 1
 
         self.controlManager = controlManager()

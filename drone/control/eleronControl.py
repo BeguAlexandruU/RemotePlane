@@ -43,9 +43,9 @@ class EleronControl:
 
 
     def setAxis(self, value):
-        print (f"Received eleron value:\nfrom {value}")
-        value = (value + 10) % 2 - 1 # Normalize value to be between -1 and 1
-        print (f"to  {value}")
+        # print (f"Received eleron value:\nfrom {value}")
+        # value = (value + 10) % 2 - 1 # Normalize value to be between -1 and 1
+        # print (f"to  {value}")
 
         if abs(value - self.last_value) < 0.05:  # Ignore small changes
             return

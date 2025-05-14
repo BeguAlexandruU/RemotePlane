@@ -7,7 +7,7 @@ def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 mpu = MPU9250(
-    address=MPU9050_ADDRESS_68,
+    address_mpu_master=MPU9050_ADDRESS_68,
     bus=1,
     gfs=GFS_1000,
     afs=AFS_8G

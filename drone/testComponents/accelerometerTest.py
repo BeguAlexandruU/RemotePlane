@@ -17,7 +17,11 @@ mpu = MPU9250(
     mode=AK8963_MODE_C100HZ
 )
 
-mpu.calibrate()       # Calibrare (necesară o singură dată)
+try:
+    mpu.calibrate()
+except ZeroDivisionError:
+    print("Calibration failed: Magnetometer not detected or not returning data.")
+    # Optionally, skip calibration or exit
 mpu.configure()       # Aplică setările
 
 while True:

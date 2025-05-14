@@ -13,7 +13,9 @@ class controlManager:
         self.eleronControl.setup()
         self.elevatorControl.setup()
         self.motorControl.setup()
+        self.arm()
         
+    def arm(self):
         self.eleronControl.arm()
         self.elevatorControl.setAxis(0)
         self.motorControl.arm()

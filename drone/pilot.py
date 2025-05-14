@@ -43,8 +43,6 @@ class Pilot:
         if data["axis"] == "eleron":
             self.vInputAxis.setRoll(data["value"])
             self.updateEleron()
-            # self.controlManager.eleronControl.setAxis(data["value"])
-            # self.controlManager.eleronControl.setAxis((self.inputAxis.roll * self.inputPriority) + (self.vInputAxis.roll * self.vInputPriority))
             
         elif data["axis"] == "elevator":
             self.vInputAxis.setPitch(data["value"])

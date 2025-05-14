@@ -33,9 +33,6 @@ class MotorControl:
         
         speed = int(((-value+1) * self.max_speed)/2)
         
-        print(f"Raw value: {value}, Mapped speed: {speed}")
-        
-        
         pulse_width = 1000 + (speed * 10)
         self.pi.set_servo_pulsewidth(self.pin, pulse_width)
     

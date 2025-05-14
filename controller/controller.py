@@ -8,6 +8,7 @@ class Controller:
         self.running = True
         self.send_data_callback = send_data_callback
 
+        # Mapping for joystick axes and buttons
         self.eleronAxis = 0
         self.elevatorAxis = 1
         self.motorAxis = 3
@@ -16,7 +17,7 @@ class Controller:
         self.virtualModeButton = 3
         self.mixedModeButton = 1
     
-    # setup function to initialize the joystick
+    # initialize the joystick
     def setup(self): 
         pygame.init()
         pygame.joystick.init()

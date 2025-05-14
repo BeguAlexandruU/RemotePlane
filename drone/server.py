@@ -1,8 +1,5 @@
 import socket
 import json
-# from motorControl import MotorControl
-# from elevatorControl import ElevatorControl
-# from eleronControl import EleronControl
 
 class Server:
     def __init__(self, pilot, host='0.0.0.0', port=65432):

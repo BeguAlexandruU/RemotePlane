@@ -43,44 +43,26 @@ class EleronControl:
 
 
     def setAxis(self, value):
+        # input value is between -1 and 1
+        # -1 is full left, 0 is neutral, 1 is full right
         value = max(-1, min(1, value))  # Clamp value to be between -1 and 1
 
-        if abs(value - self.last_value) < 0.01:  # Ignore small changes
+        # Ignore small changes
+        if abs(value - self.last_value) < 0.01:  
             return
-        
         self.last_value = value
 
-        # Process the input as usual
-        if value >= 0:
+        # Process the input
+        if value >= 0:  # Stick right
             right_eleron = -value * self.max_angle
             left_eleron = value * self.min_angle
-        else:
+        else:           # Stick left
             right_eleron = value * self.min_angle
             left_eleron = -value * self.max_angle
 
         print(f"Left eleron: {left_eleron} \t Right eleron: {right_eleron}")
         self.set_left_angle(left_eleron)
         self.set_right_angle(right_eleron)
-
-    # def setAxis(self, value):
-    #     # input value is between -1 and 1
-    #     # -1 is full left, 0 is neutral, 1 is full right
-
-    #     if value >= 0:  # Stick right
-    #         print(f"{value} to {value%1}")
-    #         value = value % 1
-    #         right_eleron = -value * self.max_angle  # 0 to max
-    #         left_eleron = value * self.min_angle  # 0 to min
-    #     else:  # Stick left
-    #         print(f"{value} to {value%-1}")
-    #         value = value % -1
-    #         right_eleron = value * self.min_angle  # min to 0
-    #         left_eleron = -value * self.max_angle  # max to 0
-            
-    #     print(f"Left eleron: {left_eleron} \t Right eleron: {right_eleron}")
-        
-    #     self.set_left_angle(left_eleron)
-    #     self.set_right_angle(right_eleron)
     
     def set_left_angle(self, angle):
         angle = angle + 90

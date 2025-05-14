@@ -8,9 +8,13 @@ def clear_terminal():
 
 mpu = MPU9250(
     address_ak=AK8963_ADDRESS,
-    address_mpu=MPU9050_ADDRESS_68,  # sau MPU9050_ADDRESS_69 dacă AD0 e conectat la 3.3V
+    address_mpu_master=MPU9050_ADDRESS_68,  # In case the MPU9250 is connected to another I2C device
+    address_mpu_slave=None,
     bus=1,
-    gfs=GFS_250, afs=AFS_2G, mfs=AK8963_BIT_16, mode=AK8963_MODE_C100HZ
+    gfs=GFS_1000,
+    afs=AFS_8G,
+    mfs=AK8963_BIT_16,
+    mode=AK8963_MODE_C100HZ
 )
 
 mpu.calibrate()       # Calibrare (necesară o singură dată)
@@ -20,7 +24,7 @@ while True:
     ax, ay, az = mpu.readAccelerometerMaster()
     gx, gy, gz = mpu.readGyroscopeMaster()
     mx, my, mz = mpu.readMagnetometerMaster()
-    
+
     clear_terminal()
     print(f"Accel: {ax:.2f}, {ay:.2f}, {az:.2f} g")
     print(f"Gyro : {gx:.2f}, {gy:.2f}, {gz:.2f} °/s")

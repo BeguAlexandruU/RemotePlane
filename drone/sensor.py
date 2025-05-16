@@ -1,10 +1,9 @@
-import array
-import threading
+import pilot
 import time
 
 class Sensor:
     def __init__(self, pilot):
-        self.pilot = pilot
+        # self.pilot = pilot
         
         self.roll = 0
         self.pitch = 0

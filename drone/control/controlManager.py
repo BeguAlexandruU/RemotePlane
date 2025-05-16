@@ -1,6 +1,6 @@
-import motorControl
-import eleronControl
-import elevatorControl
+from . import motorControl
+from . import eleronControl
+from . import elevatorControl
 
 def setup():
     eleronControl.setup(23,24)

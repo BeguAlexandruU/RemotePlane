@@ -1,43 +1,56 @@
 import pigpio
 import time
 
-class MotorControl:
-    def __init__(self, gpio_pin):
-        self.pin = gpio_pin
-        self.pi = pigpio.pi()
-        self.max_speed = 100
-        self.armed = False
-        print(f"ESC initialized on GPIO {self.pin}")
-    
-    def setup(self):
-        if not self.pi.connected:
-            raise RuntimeError("Could not connect to pigpio daemon.")
-        self.pi.set_servo_pulsewidth(self.pin, 0)
-        print("ESC ready to arm.")
+pin = None
+esc = None
 
-    def arm(self):
-        print("Arming ESC...")
-        self.pi.set_servo_pulsewidth(self.pin, 1000)
-        time.sleep(2)
-        self.pi.set_servo_pulsewidth(self.pin, 2000)
-        time.sleep(2)
-        self.pi.set_servo_pulsewidth(self.pin, 1000)
-        time.sleep(2)
-        self.armed = True
-        print("ESC armed.")
+max_speed = 100
+armed = False
 
-    def setSpeed(self, value):
-        if not self.armed:
-            print("ESC not armed. Call arm() first.")
-            return
-        
-        speed = int(((-value+1) * self.max_speed)/2)
-        
-        pulse_width = 1000 + (speed * 10)
-        self.pi.set_servo_pulsewidth(self.pin, pulse_width)
+def setup(gpio_pin):
+    global esc, pin
+    pin = gpio_pin
+    esc = pigpio.pi()
+    if not esc.connected:
+        raise RuntimeError("Could not connect to pigpio daemon.")
+    esc.set_servo_pulsewidth(pin, 0)
+    print(f"ESC initialized")
+
+def arm():
+    global armed, pin, esc
+    if armed:
+        print("ESC already armed.")
+        return
+    print("Arming ESC...")
+    esc.set_servo_pulsewidth(pin, 1000)
+    time.sleep(2)
+    esc.set_servo_pulsewidth(pin, 2000)
+    time.sleep(2)
+    esc.set_servo_pulsewidth(pin, 1000)
+    time.sleep(2)
+    armed = True
+    print("ESC armed")
+
+def setAxis(value):
+    global armed, pin, esc, max_speed
+    if esc is None:
+        print("ESC not initialized.")
+        return
+    if not armed:
+        print("ESC not armed. Call arm() first.")
+        return
     
-    def cleanup(self):
-        print("Cleaning up ESC...")
-        self.pi.set_servo_pulsewidth(self.pin, 0)
-        self.pi.stop()
-        print("ESC cleaned up.")
+    speed = int(((-value+1) * max_speed)/2)
+    
+    pulse_width = 1000 + (speed * 10)
+    esc.set_servo_pulsewidth(pin, pulse_width)
+
+def cleanup():
+    global esc, pin
+    if esc is None:
+        print("ESC not initialized.")
+        return
+    print("Cleaning up ESC...")
+    esc.set_servo_pulsewidth(pin, 0)
+    esc.stop()
+    print("ESC cleaned up.")

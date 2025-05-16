@@ -1,27 +1,20 @@
-from .motorControl import MotorControl
-from .elevatorControl import ElevatorControl
-from .eleronControl import EleronControl
+import motorControl
+import eleronControl
+import elevatorControl
 
-class controlManager:
-    def __init__(self):
-        self.eleronControl = EleronControl(23, 24)
-        self.elevatorControl = ElevatorControl(25)
-        self.motorControl = MotorControl(12)
+def setup():
+    eleronControl.setup(23,24)
+    elevatorControl.setup(25)
+    motorControl.setup(12)
+    arm()
     
-    def setup(self):
+def arm():
+    eleronControl.arm()
+    elevatorControl.arm()
+    motorControl.arm()
 
-        self.eleronControl.setup()
-        self.elevatorControl.setup()
-        self.motorControl.setup()
-        self.arm()
-        
-    def arm(self):
-        self.eleronControl.arm()
-        self.elevatorControl.setAxis(0)
-        self.motorControl.arm()
-    
-    def cleanup(self):
-        
-        self.eleronControl.cleanup()
-        self.elevatorControl.cleanup()
-        self.motorControl.cleanup()
+def cleanup():
+    eleronControl.cleanup()
+    elevatorControl.cleanup()
+    motorControl.cleanup()
+

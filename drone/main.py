@@ -1,10 +1,12 @@
-from pilot import Pilot
+import pilot
 from sensor import Sensor
 from server import Server
 from concurrent.futures import ThreadPoolExecutor
 
 if __name__ == "__main__":
-    pilot = Pilot()
+    
+    pilot.setup()
+    
     sensor = Sensor(pilot)
     server = Server(pilot)
 

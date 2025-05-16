@@ -1,77 +1,93 @@
-import time
+import control.controlManager as controlManager
+from control.controlManager import eleronControl
+from control.controlManager import elevatorControl
+from control.controlManager import motorControl
 
-from control.controlManager import controlManager
-from inputAxis import inputAxis
+inputAxis = {
+        "pitch": 0,
+        "roll": 0,
+        "throttle": 0
+    }
+vInputAxis = {
+        "pitch": 0,
+        "roll": 0,
+        "throttle": 0
+    }
 
-class Pilot:
-    def __init__(self):
-        self.inputAxis = inputAxis()
-        self.vInputAxis = inputAxis()
+inputPriority = 1
+vInputPriority = 1
 
-        self.inputPriority = 1
-        self.vInputPriority = 1
+print("Pilot initialized")
 
-        self.controlManager = controlManager()
-        
-        print("Pilot initialized")
-
-        self.setup()
-
-    def setup(self):
-        self.controlManager.setup()
+def setup():
+    controlManager.setup()
     
-    def cleanup(self):
-        self.controlManager.cleanup()
+def cleanup():
+    controlManager.cleanup()
 
-    def updateEleron(self):
-        self.controlManager.eleronControl.setAxis((self.inputAxis.roll * self.inputPriority) + (self.vInputAxis.roll * self.vInputPriority))
+def updateEleron():
+    global inputAxis, vInputAxis, inputPriority, vInputPriority
+    eleronControl.setAxis((inputAxis["roll"] * inputPriority) + (vInputAxis["roll"] * vInputPriority))
+
+def updateElevator():
+    elevatorControl.setAxis(inputAxis["pitch"] * inputPriority + vInputAxis["pitch"] * vInputPriority)
+
+def updateMotor():
+    motorControl.setAxis(inputAxis["throttle"])
+
+def setInput(data):
+    global inputAxis
+    if data["axis"] == "eleron":
+        inputAxis["roll"] = data["value"]
+        updateEleron()
+    elif data["axis"] == "elevator":
+        inputAxis["pitch"] = data["value"]
+        updateElevator()
+    elif data["axis"] == "motor":
+        inputAxis["throttle"] = data["value"]
+        updateMotor()
+        
+    # print("-- Pilot ---------------------")
+    # print("Pilot: ", inputAxis.pitch, inputAxis.roll, inputAxis.throttle)
+    # print("_______________________________________")
     
-    def setInput(self, data):
-        if data["axis"] == "eleron":
-            self.inputAxis.setRoll(data["value"])
-            self.updateEleron()
-        elif data["axis"] == "elevator":
-            self.inputAxis.setPitch(data["value"])
-        elif data["axis"] == "motor":
-            self.inputAxis.setThrottle(data["value"])
-        
-        # print("-- Pilot ---------------------")
-        # print("Pilot: ", self.inputAxis.pitch, self.inputAxis.roll, self.inputAxis.throttle)
-        # print("_______________________________________")
+def setVInput(data):
+    global vInputAxis
     
-    def setVInput(self, data):
-        if data["axis"] == "eleron":
-            self.vInputAxis.setRoll(data["value"])
-            self.updateEleron()
-            
-        elif data["axis"] == "elevator":
-            self.vInputAxis.setPitch(data["value"])
-        elif data["axis"] == "motor":
-            self.vInputAxis.setThrottle(data["value"])
-        
-        # print("-- VPilot ---------------------")
-        # print("VPilot: ", self.vInputAxis.pitch, self.vInputAxis.roll, self.vInputAxis.throttle)
-        # print("_______________________________________")
+    if data["axis"] == "eleron":
+        vInputAxis["roll"] = data["value"]
+        updateEleron()
+    elif data["axis"] == "elevator":
+        vInputAxis["pitch"] = data["value"]
+        updateElevator()
+    elif data["axis"] == "motor":
+        vInputAxis["throttle"] = data["value"]
+        updateMotor()
+    
+    # print("-- VPilot ---------------------")
+    # print("VPilot: ", vInputAxis.pitch, vInputAxis.roll, vInputAxis.throttle)
+    # print("_______________________________________")
 
-    def setButton(self, data):
-        # if data["button"] == "arm":
-        #     self.controlManager.motorControl.arm()
-        #     self.controlManager.eleronControl.arm()
-        # elif data["button"] == "disarm":
-        #     self.controlManager.motorControl.disarm()
-        #     self.controlManager.eleronControl.disarm()
-        if data["button"] == "mode":
-            self.changeMode(data["value"])
+def setButton(data):
+    # if data["button"] == "arm":
+    #     controlManager.motorControl.arm()
+    #     controlManager.eleronControl.arm()
+    # elif data["button"] == "disarm":
+    #     controlManager.motorControl.disarm()
+    #     controlManager.eleronControl.disarm()
+    if data["button"] == "mode":
+        changeMode(data["value"])
 
-    def changeMode(self, mode):
-        if mode == "manual":
-            self.inputPriority = 1
-            self.vInputPriority = 0
-        elif mode == "virtual":
-            self.inputPriority = 0
-            self.vInputPriority = 1
-        elif mode == "mixed":
-            self.inputPriority = 1
-            self.vInputPriority = 1
-        
-        print(f"Pilot mode changed to {mode}")
+def changeMode(mode):
+    global inputPriority, vInputPriority
+    if mode == "manual":
+        inputPriority = 1
+        vInputPriority = 0
+    elif mode == "virtual":
+        inputPriority = 0
+        vInputPriority = 1
+    elif mode == "mixed":
+        inputPriority = 1
+        vInputPriority = 1
+    
+    print(f"Pilot mode changed to {mode}")

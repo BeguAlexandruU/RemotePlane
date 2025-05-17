@@ -3,8 +3,8 @@ from . import eleronControl
 from . import elevatorControl
 
 def setup():
-    eleronControl.setup(23,24)
-    elevatorControl.setup(25)
+    eleronControl.setup(20,21)
+    elevatorControl.setup(16)
     motorControl.setup(12)
     arm()
     

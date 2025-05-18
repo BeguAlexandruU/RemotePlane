@@ -47,7 +47,7 @@ def setAxis(value):
     # Ensure value stays within allowed range
     elevator_angle = max(min_angle, min(max_angle, elevator_angle))
     
-    print(f"Elevator: {elevator_angle}")
+    # print(f"Elevator: {elevator_angle}")
     
     # Use daemon threads to set servo angles
     set_angle(elevator_angle)
@@ -62,10 +62,12 @@ def set_angle(angle):
     # time.sleep(0.1)  # Allow servo time to receive and process the signal
     # servo.ChangeDutyCycle(0)  # Stop the signal to prevent jitter
     
-def trimElevator(value):
+def setTrim(value):
     global trim
     # Set trim value to adjust neutral position
     trim += value
+    print(f"Trim elevator: {trim}")
+
 
 def cleanup():
     global servo

@@ -79,7 +79,8 @@ def setButton(data):
         changeMode(data["value"])
     elif data["button"] == "trimElevator":
         # changeMode(data["value"])
-        elevatorControl.trimElevator(data["value"])
+        elevatorControl.setTrim(data["value"])
+        updateElevator()
 
 def changeMode(mode):
     global inputPriority, vInputPriority

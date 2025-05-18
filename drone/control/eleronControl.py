@@ -29,7 +29,7 @@ def setup(left_pin_param, right_pin_param):
     left_servo.start(0)
     right_servo.start(0)
     
-    print(f"Eleron servos initialized on pins {left_pin} and {right_pin}")
+    # print(f"Eleron servos initialized on pins {left_pin} and {right_pin}")
 
 def arm():
     print("Arming eleron servos...")

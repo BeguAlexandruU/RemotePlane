@@ -16,6 +16,9 @@ class Controller:
         self.manualModeButton = 0
         self.virtualModeButton = 3
         self.mixedModeButton = 1
+        
+        self.trimElevatorIncreaseButton = 5
+        self.trimElevatorDecreaseButton = 4
     
     # initialize the joystick
     def setup(self): 
@@ -72,17 +75,29 @@ class Controller:
                     "button": "mode",
                     "value": "manual",
                 }
-            if event.button == self.virtualModeButton:
+            elif event.button == self.virtualModeButton:
                 data = {
                     "type": "button",
                     "button": "mode",
                     "value": "virtual",
                 }
-            if event.button == self.mixedModeButton:
+            elif event.button == self.mixedModeButton:
                 data = {
                     "type": "button",
                     "button": "mode",
                     "value": "mixed",
+                }
+            elif event.button == self.trimElevatorIncreaseButton:
+                data = {
+                    "type": "button",
+                    "button": "trimElevator",
+                    "value": 10,
+                }
+            elif event.button == self.trimElevatorIncreaseButton:
+                data = {
+                    "type": "button",
+                    "button": "trimElevator",
+                    "value": -10,
                 }
         # elif event.type == pygame.JOYBUTTONUP:
         #     print(f"Button {event.button} released")

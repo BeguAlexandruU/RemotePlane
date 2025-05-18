@@ -54,7 +54,7 @@ def run():
         #calculate roll input axis
         data = {
             "axis": "eleron",
-            "value": roll / -180
+            "value": roll / -90
         }
         
         if data:

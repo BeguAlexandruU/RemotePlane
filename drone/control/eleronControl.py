@@ -8,8 +8,8 @@ right_pin = None
 left_servo = None
 right_servo = None
 
-last_update_time = 0
-update_interval = 0.05
+# last_update_time = 0
+# update_interval = 0.05
 last_value = 0
 
 max_angle = 60
@@ -45,12 +45,8 @@ def arm():
 
 def setAxis(value):
     global last_value
-    global last_update_time
-    global update_interval
     global max_angle
     global min_angle
-    global left_servo
-    global right_servo
     
     # input value is between -1 and 1
     # -1 is full left, 0 is neutral, 1 is full right

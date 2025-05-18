@@ -62,6 +62,11 @@ def set_angle(angle):
     # time.sleep(0.1)  # Allow servo time to receive and process the signal
     # servo.ChangeDutyCycle(0)  # Stop the signal to prevent jitter
     
+def trimElevator(value):
+    global trim
+    # Set trim value to adjust neutral position
+    trim += value
+
 def cleanup():
     global servo
     if servo is None:

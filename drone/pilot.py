@@ -77,6 +77,9 @@ def setButton(data):
     #     controlManager.eleronControl.disarm()
     if data["button"] == "mode":
         changeMode(data["value"])
+    elif data["button"] == "trimElevator":
+        # changeMode(data["value"])
+        elevatorControl.trimElevator(data["value"])
 
 def changeMode(mode):
     global inputPriority, vInputPriority

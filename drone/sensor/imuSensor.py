@@ -61,7 +61,7 @@ def run():
             pilot.setVInput(data)
         
         
-        time.sleep(0.1)
+        # time.sleep(0.1)
 
 def read_sensor_data():
     global imuSensor

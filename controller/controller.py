@@ -93,7 +93,7 @@ class Controller:
                     "button": "trimElevator",
                     "value": 10,
                 }
-            elif event.button == self.trimElevatorIncreaseButton:
+            elif event.button == self.trimElevatorDecreaseButton:
                 data = {
                     "type": "button",
                     "button": "trimElevator",

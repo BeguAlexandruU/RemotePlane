@@ -65,7 +65,7 @@ def set_angle(angle):
 def setTrim(value):
     global trim
     # Set trim value to adjust neutral position
-    trim += value
+    trim = max(min_angle, min(max_angle, trim + value))
     print(f"Trim elevator: {trim}")
 
 

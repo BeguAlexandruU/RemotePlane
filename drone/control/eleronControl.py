@@ -29,7 +29,7 @@ def setup(left_pin_param, right_pin_param):
     left_servo.start(0)
     right_servo.start(0)
     
-    # print(f"Eleron servos initialized on pins {left_pin} and {right_pin}")
+    print(f"Eleron servos initialized on pins {left_pin} and {right_pin}")
 
 def arm():
     print("Arming eleron servos...")
@@ -65,7 +65,7 @@ def setAxis(value):
         right_eleron_angle = value * min_angle
         left_eleron_angle = -value * max_angle
 
-    print(f"Left eleron: {left_eleron_angle} \t Right eleron: {right_eleron_angle}")
+    # print(f"Left eleron: {left_eleron_angle} \t Right eleron: {right_eleron_angle}")
     set_left_angle(left_eleron_angle)
     set_right_angle(right_eleron_angle)
 
